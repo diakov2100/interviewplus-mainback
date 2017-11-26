@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище interviewplusModelContainer" CdmEntityContainer="interviewplusEntities">
+    <EntitySetMapping Name="answer">
+      <EntityTypeMapping TypeName="interviewplusModel.answer">
+        <MappingFragment StoreEntitySet="answer">
+          <ScalarProperty Name="audio" ColumnName="audio" />
+          <ScalarProperty Name="video" ColumnName="video" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="answer1" ColumnName="answer" />
+          <ScalarProperty Name="question_id" ColumnName="question_id" />
+          <ScalarProperty Name="interview_id" ColumnName="interview_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="app">
+      <EntityTypeMapping TypeName="interviewplusModel.app">
+        <MappingFragment StoreEntitySet="app">
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="settings" ColumnName="settings" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="form">
+      <EntityTypeMapping TypeName="interviewplusModel.form">
+        <MappingFragment StoreEntitySet="form">
+          <ScalarProperty Name="hr_login" ColumnName="hr_login" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hr">
+      <EntityTypeMapping TypeName="interviewplusModel.hr">
+        <MappingFragment StoreEntitySet="hr">
+          <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="login" ColumnName="login" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="interview">
+      <EntityTypeMapping TypeName="interviewplusModel.interview">
+        <MappingFragment StoreEntitySet="interview">
+          <ScalarProperty Name="form_id" ColumnName="form_id" />
+          <ScalarProperty Name="interviewee_id" ColumnName="interviewee_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="interviewee">
+      <EntityTypeMapping TypeName="interviewplusModel.interviewee">
+        <MappingFragment StoreEntitySet="interviewee">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="question">
+      <EntityTypeMapping TypeName="interviewplusModel.question">
+        <MappingFragment StoreEntitySet="question">
+          <ScalarProperty Name="app_id" ColumnName="app_id" />
+          <ScalarProperty Name="settings" ColumnName="settings" />
+          <ScalarProperty Name="form_id" ColumnName="form_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="file">
+      <EntityTypeMapping TypeName="interviewplusModel.file">
+        <MappingFragment StoreEntitySet="file">
+          <ScalarProperty Name="file1" ColumnName="file" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

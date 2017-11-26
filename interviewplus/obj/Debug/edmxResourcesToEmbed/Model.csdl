@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="interviewplusModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="interviewplusEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="answer" EntityType="interviewplusModel.answer" />
+    <EntitySet Name="app" EntityType="interviewplusModel.app" />
+    <EntitySet Name="form" EntityType="interviewplusModel.form" />
+    <EntitySet Name="hr" EntityType="interviewplusModel.hr" />
+    <EntitySet Name="interview" EntityType="interviewplusModel.interview" />
+    <EntitySet Name="interviewee" EntityType="interviewplusModel.interviewee" />
+    <EntitySet Name="question" EntityType="interviewplusModel.question" />
+    <AssociationSet Name="question_app" Association="interviewplusModel.question_app">
+      <End Role="app" EntitySet="app" />
+      <End Role="question" EntitySet="question" />
+    </AssociationSet>
+    <AssociationSet Name="form_hr" Association="interviewplusModel.form_hr">
+      <End Role="hr" EntitySet="hr" />
+      <End Role="form" EntitySet="form" />
+    </AssociationSet>
+    <AssociationSet Name="interview_form" Association="interviewplusModel.interview_form">
+      <End Role="form" EntitySet="form" />
+      <End Role="interview" EntitySet="interview" />
+    </AssociationSet>
+    <AssociationSet Name="questions_form" Association="interviewplusModel.questions_form">
+      <End Role="form" EntitySet="form" />
+      <End Role="question" EntitySet="question" />
+    </AssociationSet>
+    <AssociationSet Name="interview_interviewee" Association="interviewplusModel.interview_interviewee">
+      <End Role="interviewee" EntitySet="interviewee" />
+      <End Role="interview" EntitySet="interview" />
+    </AssociationSet>
+    <EntitySet Name="file" EntityType="interviewplusModel.file" />
+  </EntityContainer>
+  <EntityType Name="answer">
+    <Key>
+      <PropertyRef Name="interview_id" />
+      <PropertyRef Name="question_id" />
+    </Key>
+    <Property Name="interview_id" Type="Int32" Nullable="false" />
+    <Property Name="question_id" Type="Int32" Nullable="false" />
+    <Property Name="answer1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="type" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="video" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="audio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="app">
+    <Key>
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="settings" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="image" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="question" Relationship="interviewplusModel.question_app" FromRole="app" ToRole="question" />
+  </EntityType>
+  <EntityType Name="form">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="hr_login" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="hr" Relationship="interviewplusModel.form_hr" FromRole="form" ToRole="hr" />
+    <NavigationProperty Name="interview" Relationship="interviewplusModel.interview_form" FromRole="form" ToRole="interview" />
+    <NavigationProperty Name="question" Relationship="interviewplusModel.questions_form" FromRole="form" ToRole="question" />
+  </EntityType>
+  <EntityType Name="hr">
+    <Key>
+      <PropertyRef Name="login" />
+    </Key>
+    <Property Name="login" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="pass" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="form" Relationship="interviewplusModel.form_hr" FromRole="hr" ToRole="form" />
+  </EntityType>
+  <EntityType Name="interview">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="interviewee_id" Type="Int32" Nullable="false" />
+    <Property Name="form_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="form" Relationship="interviewplusModel.interview_form" FromRole="interview" ToRole="form" />
+    <NavigationProperty Name="interviewee" Relationship="interviewplusModel.interview_interviewee" FromRole="interview" ToRole="interviewee" />
+  </EntityType>
+  <EntityType Name="interviewee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="interview" Relationship="interviewplusModel.interview_interviewee" FromRole="interviewee" ToRole="interview" />
+  </EntityType>
+  <EntityType Name="question">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="form_id" Type="Int32" Nullable="false" />
+    <Property Name="settings" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="app_id" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="app" Relationship="interviewplusModel.question_app" FromRole="question" ToRole="app" />
+    <NavigationProperty Name="form" Relationship="interviewplusModel.questions_form" FromRole="question" ToRole="form" />
+  </EntityType>
+  <Association Name="question_app">
+    <End Type="interviewplusModel.app" Role="app" Multiplicity="1" />
+    <End Type="interviewplusModel.question" Role="question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="app">
+        <PropertyRef Name="name" />
+      </Principal>
+      <Dependent Role="question">
+        <PropertyRef Name="app_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="form_hr">
+    <End Type="interviewplusModel.hr" Role="hr" Multiplicity="1" />
+    <End Type="interviewplusModel.form" Role="form" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hr">
+        <PropertyRef Name="login" />
+      </Principal>
+      <Dependent Role="form">
+        <PropertyRef Name="hr_login" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="interview_form">
+    <End Type="interviewplusModel.form" Role="form" Multiplicity="1" />
+    <End Type="interviewplusModel.interview" Role="interview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="form">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="interview">
+        <PropertyRef Name="form_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="questions_form">
+    <End Type="interviewplusModel.form" Role="form" Multiplicity="1" />
+    <End Type="interviewplusModel.question" Role="question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="form">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="question">
+        <PropertyRef Name="form_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="interview_interviewee">
+    <End Type="interviewplusModel.interviewee" Role="interviewee" Multiplicity="1" />
+    <End Type="interviewplusModel.interview" Role="interview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="interviewee">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="interview">
+        <PropertyRef Name="interviewee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="file">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="file1" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+</Schema>

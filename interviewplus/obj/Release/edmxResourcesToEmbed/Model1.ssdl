@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище interviewplusModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="answer">
+    <Key>
+      <PropertyRef Name="interview_id" />
+      <PropertyRef Name="question_id" />
+    </Key>
+    <Property Name="interview_id" Type="int" Nullable="false" />
+    <Property Name="question_id" Type="int" Nullable="false" />
+    <Property Name="answer" Type="nvarchar(max)" />
+    <Property Name="type" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="video" Type="nvarchar(max)" />
+    <Property Name="audio" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="app">
+    <Key>
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="settings" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="image" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="file">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="file" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="form">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="hr_login" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="hr">
+    <Key>
+      <PropertyRef Name="login" />
+    </Key>
+    <Property Name="login" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="pass" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="interview">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="interviewee_id" Type="int" Nullable="false" />
+    <Property Name="form_id" Type="int" Nullable="false" />
+    <Property Name="uid" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="interviewee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="uid" Type="nvarchar" MaxLength="30" />
+    <Property Name="settings" Type="nvarchar" MaxLength="400" />
+  </EntityType>
+  <EntityType Name="question">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="form_id" Type="int" Nullable="false" />
+    <Property Name="settings" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="app_id" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="form_hr">
+    <End Role="hr" Type="Self.hr" Multiplicity="1" />
+    <End Role="form" Type="Self.form" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hr">
+        <PropertyRef Name="login" />
+      </Principal>
+      <Dependent Role="form">
+        <PropertyRef Name="hr_login" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="interview_form">
+    <End Role="form" Type="Self.form" Multiplicity="1" />
+    <End Role="interview" Type="Self.interview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="form">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="interview">
+        <PropertyRef Name="form_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="interview_interviewee">
+    <End Role="interviewee" Type="Self.interviewee" Multiplicity="1" />
+    <End Role="interview" Type="Self.interview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="interviewee">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="interview">
+        <PropertyRef Name="interviewee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="question_app">
+    <End Role="app" Type="Self.app" Multiplicity="1" />
+    <End Role="question" Type="Self.question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="app">
+        <PropertyRef Name="name" />
+      </Principal>
+      <Dependent Role="question">
+        <PropertyRef Name="app_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="questions_form">
+    <End Role="form" Type="Self.form" Multiplicity="1" />
+    <End Role="question" Type="Self.question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="form">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="question">
+        <PropertyRef Name="form_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище interviewplusModelContainer">
+    <EntitySet Name="answer" EntityType="Self.answer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="app" EntityType="Self.app" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="file" EntityType="Self.file" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="form" EntityType="Self.form" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hr" EntityType="Self.hr" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="interview" EntityType="Self.interview" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="interviewee" EntityType="Self.interviewee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="question" EntityType="Self.question" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="form_hr" Association="Self.form_hr">
+      <End Role="hr" EntitySet="hr" />
+      <End Role="form" EntitySet="form" />
+    </AssociationSet>
+    <AssociationSet Name="interview_form" Association="Self.interview_form">
+      <End Role="form" EntitySet="form" />
+      <End Role="interview" EntitySet="interview" />
+    </AssociationSet>
+    <AssociationSet Name="interview_interviewee" Association="Self.interview_interviewee">
+      <End Role="interviewee" EntitySet="interviewee" />
+      <End Role="interview" EntitySet="interview" />
+    </AssociationSet>
+    <AssociationSet Name="question_app" Association="Self.question_app">
+      <End Role="app" EntitySet="app" />
+      <End Role="question" EntitySet="question" />
+    </AssociationSet>
+    <AssociationSet Name="questions_form" Association="Self.questions_form">
+      <End Role="form" EntitySet="form" />
+      <End Role="question" EntitySet="question" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

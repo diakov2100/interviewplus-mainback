@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="interviewplusEntities-Web.config Connection String" description="interviewplusEntities Строка подключения в web.config, используемая приложением для доступа к базе данных." defaultValue="metadata=res://*/Model.csdl|res://*/Model.ssdl|res://*/Model.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=yastream11.database.windows.net;initial catalog=interviewplus;persist security info=True;user id=diakov2100;password=25081998mA;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\dyako\\Source\\Repos\\interviewplus\\interviewplus\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='interviewplusEntities']/@connectionString" />
+  </parameter>
+  <parameter name="interviewplusEntities1-Web.config Connection String" description="interviewplusEntities1 Строка подключения в web.config, используемая приложением для доступа к базе данных." defaultValue="metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=yastream11.database.windows.net;initial catalog=interviewplus;persist security info=True;user id=diakov2100;password=25081998mA;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\dyako\\Source\\Repos\\interviewplus\\interviewplus\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='interviewplusEntities1']/@connectionString" />
+  </parameter>
+</parameters>
